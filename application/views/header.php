@@ -125,7 +125,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        <a id='fa_bar' class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <!-- <a href="<?php echo base_url('dashboard') ?>" class="nav-link">Home</a> -->
@@ -139,7 +139,7 @@
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <ul id="right_navbar" class="navbar-nav ml-auto">
 
       <?php 
         $role = trim($this->session->userdata('role'));

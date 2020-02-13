@@ -49,7 +49,16 @@
                 <!-- textarea -->
                 <div class="form-group">
                   <label>Keterangan<mark>&lt; Opsional &gt;</mark></label>
-                    <textarea class="form-control" name="keterangan" rows="3" placeholder="Tambahkan Keterangan Disini"><?php echo trim($supplier->keterangan) ?></textarea>
+                    <textarea class="form-control" name="keterangan" rows="3"><?php echo trim($supplier->keterangan) ?></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="tempatlahir">Phone <mark>&lt;Optional&gt;</mark></label>
+                  <input type="text" class="form-control" name="phone" value="<?php echo trim($supplier->phone) ?>" >
+                </div>
+                <div class="form-group">
+                  <label for="email">Email address <mark>&lt;Optional&gt;</mark></label>
+                  <input id="email_" type="email" class="form-control" name="email" value="<?php echo trim($supplier->email) ?>">
                 </div>
 
               <div class="card-footer">

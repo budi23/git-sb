@@ -21,6 +21,49 @@ class Dashboard extends CI_Controller {
         }
 	}
 
+	function auto_insert_barang()
+	{
+		$inputFileType = 'ods';
+		$inputFileName = 'dtsupplier.ods';
+		$reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+
+		$reader->setReadDataOnly(TRUE);
+		$spreadsheet = $reader->load($inputFileName);
+
+		$worksheet = $spreadsheet->getActiveSheet();
+
+
+		// Get the highest row and column numbers referenced in the worksheet
+		$highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+		for ($row = 2; $row <= 46; ++$row) {
+			$value = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+			if(!empty($value)){
+				$address = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+				$phone = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+				$email = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+				$nama = strtoupper(trim($value));
+				$total = $this->mdl_crud->total_data('dt_supplier');
+				$data = array(
+					'id' => $total+1,
+					'nama_supplier' => $nama,
+					'address' => trim($address),
+					'phone' => trim($phone),
+					'email' => trim($email),
+				);
+				$cek = $this->mdl_crud->insert_data('dt_supplier', $data);
+				if($cek){
+				    $ket = "Berhasil Menambahkan Supplier [ $nama ]";
+				    $this->log_data($ket);
+					$this->session->set_flashdata('success_add', "Supplier $nama berhasil ditambahkan");
+				}else{
+				    $ket = "Gagal Menambahkan Supplier [ $nama ]";
+				    $this->log_data($ket);
+				    $this->session->set_flashdata('failed_add', "Supplier $nama Gagal ditambahkan");
+				};
+			};
+		};
+		redirect('tampil-data-supplier','refresh');
+	}
 
 	//route active-user
 	function active_user()
@@ -2276,7 +2319,7 @@ class Dashboard extends CI_Controller {
 	function view_data_supplier(){
 		$data['title'] = 'Data Supplier';
 		$data['header'] = 'header';
-		$data['supplier'] = $this->mdl_crud->view_data('dt_supplier');
+		$data['supplier'] = $this->mdl_crud->view_data_orderby('dt_supplier', 'nama_supplier', 'ASC');
 		$data['content'] = 'vw_all_supplier';
 		$data['footer'] = 'footer';
 		$this->load->view('index.php', $data);
@@ -2430,6 +2473,8 @@ class Dashboard extends CI_Controller {
 		$this->form_validation->set_rules('nama_sup', 'Nama Supplier', "required|trim|htmlspecialchars");
 		$this->form_validation->set_rules('address_supplier', 'Alamat Supplier', "required|trim|htmlspecialchars|strip_tags");
 		$this->form_validation->set_rules('keterangan', 'Keterangan', "trim|htmlspecialchars|strip_tags");
+		$this->form_validation->set_rules('phone', 'Phone', "trim|htmlspecialchars|strip_tags");
+		$this->form_validation->set_rules('email', 'Email', "valid_email|trim|htmlspecialchars|strip_tags");
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -2454,6 +2499,8 @@ class Dashboard extends CI_Controller {
 			'nama_supplier' => $this->input->post('nama_sup'),
 			'address' => $this->input->post('address_supplier'),
 			'keterangan' => $this->input->post('keterangan'),
+			'phone' => $this->input->post('phone'),
+			'email' => $this->input->post('email')
 		);
 		$cek = $this->mdl_crud->update_data('dt_supplier', $id_supplier, $data, 'id');
 		if($cek){

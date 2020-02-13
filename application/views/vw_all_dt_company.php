@@ -43,7 +43,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $j=0; foreach ($customer as $data): $j++;?>
+                <?php foreach ($customer as $data):?>
                 <tr>
                   <td><?php echo $data->company_name ?></td>
                   <td><?php echo trim($data->address) ?></td>
@@ -79,19 +79,21 @@
                     </td>
                   <td>
                     <div class="btn-group" role="group">
-                      <form id="form_action<?php echo $j ?>" action="" method="post" accept-charset="utf-8" role="form">
-                        <input type="hidden" name="id_company" value="<?php echo $data->id_company ?>">
-                        <button id="<?php echo $j ?>" type="button" class="btn btn-default btn-view" name="view">View</button>
-                        <button id="<?php echo $j ?>" type="button" class="btn btn-default btn-edit" name="edit">
-                          <i class="far fa-edit"></i>Edit</button>
-                        <input id="btn_action<?php echo $j ?>" type="submit" class="d-none">
-                      </form>
+                      <button data-id="<?php echo trim($data->id_company) ?>" type="button" class="btn btn-default btn-view" name="view">View</button>
+                      <button data-id="<?php echo trim($data->id_company) ?>" type="button" class="btn btn-default btn-edit" name="edit">
+                        <i class="far fa-edit"></i>Edit</button>
                     </div>
                   </td>
                 </tr>
                 <?php endforeach ?>
                 </tfoot>
               </table>
+              <div class="d-none">
+                <form id="form_action" action="" method="post" accept-charset="utf-8" role="form">
+                  <input id="value_id" type="hidden" name="id_company" value="">
+                  <input id="btn_action" type="submit">
+                </form>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -134,27 +136,21 @@
     }
 
     $('.btn-view').click(function(event) {
-      $id = $(this).attr('id');
-      $("#form_action"+$id+"").attr('action', 'action-customer/view');
-      $("#btn_action"+$id+"").click();
+      $id = $(this).attr('data-id');
+      $("#value_id").val($id);
+      $("#form_action").attr('action', 'action-customer/view');
+      $("#btn_action").click();
     });
 
     $('.btn-edit').click(function(event) {
-      $id = $(this).attr('id');
-      $("#form_action"+$id+"").attr('action', 'action-customer/edit');
-      $("#btn_action"+$id+"").click();
+      $id = $(this).attr('data-id');
+      $("#value_id").val($id);
+      $("#form_action").attr('action', 'action-customer/edit');
+      $("#btn_action").click();
     });
 
 
     $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
   });
 </script>
 </body>

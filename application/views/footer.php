@@ -8,10 +8,12 @@
   </footer>
 </div>
 <!-- ./wrapper -->
-<form id="form_mode" method="post">
-  <input id="input_mode" type="hidden" name="mode" value="">
-  <a id="submit_mode" class="d-none"></a>
-</form>
+<div class='d-none'>
+  <form id="form_mode" method="post">
+    <input id="input_mode" type="hidden" name="mode" value="">
+    <a id="submit_mode" class="d-none"></a>
+  </form>
+</div>
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
@@ -216,9 +218,10 @@ function light_mode() {
   $('label[for=customSwitch1]').text('Light Mode');
   $('#submit_mode').click();
   $('.custom-switch > label').text('Light Mode');
-  $('.custom-switch > label').attr('style', 'color: #4C4C4C !important;');
-  $('.main-header').attr('class', 'main-header navbar navbar-expand navbar-light');
+  $('.custom-switch > label').attr('style', 'color: #FFFFFF !important;');
+  $('.main-header').attr('class', 'main-header navbar navbar-expand navbar-primary');
   $('a').attr('style', 'color: #4C4C4C !important;');
+  $('ul#right_navbar > li > a, #fa_bar').attr('style', 'color: #FFFFFF !important;');
   $("li[class='breadcrumb-item active']").attr('style', 'color: #000 !important;');
   $('.main-sidebar').attr('class', 'main-sidebar sidebar-light-primary elevation-4');
   $('.content-wrapper').attr('style', 'background-color: #F8F9FA !important;');

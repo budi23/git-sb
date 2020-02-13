@@ -35,7 +35,7 @@
             <!-- /.card-header -->
               <div class="card-body">
                 <div class="form-group">
-                  <label for="id">supplier Name</label>
+                  <label for="nama_supplier">supplier Name</label>
                   <input type="text" class="form-control" name="nama_supplier" placeholder="supplier Name" value="<?php echo trim($supplier->nama_supplier) ?>" readonly>
                 </div>
                 <!-- textarea -->
@@ -46,16 +46,16 @@
                 <!-- textarea -->
                 <div class="form-group">
                   <label>Keterangan</label>
-                    <textarea class="form-control" name="keterangan" rows="3" placeholder="Tambahkan Keterangan Disini"><?php echo trim($supplier->keterangan) ?></textarea>
+                    <textarea class="form-control" name="keterangan" rows="3" readonly><?php echo trim($supplier->keterangan) ?></textarea>
                 </div>
 
                 <div class="form-group">
                   <label for="tempatlahir">Phone</label>
-                  <input type="text" class="form-control" name="phone" value="<?php echo trim($supplier->phone) ?>" >
+                  <input type="text" class="form-control" name="phone" value="<?php echo trim($supplier->phone) ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label for="email">Email address</label>
-                  <input id="email_" type="email" class="form-control" name="email" value="<?php echo trim($supplier->email) ?>">
+                  <input id="email_" type="email" class="form-control" name="email" value="<?php echo trim($supplier->email) ?>" readonly>
                 </div>
           
           </div>

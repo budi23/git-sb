@@ -34,37 +34,39 @@
               <table id="example1" class="table table-bordered table-dark table-hover table-responsive-lg">
                 <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>No.</th>
                   <th>Supplier</th>
-                  <th>Address</th>
+                  <!-- <th>Address</th> -->
                   <th>Phone</th>
                   <th>Email</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php $j=0; foreach ($supplier as $data): $j++;?>
+                <?php $no=0; foreach ($supplier as $data): $no++?>
                 <tr>
-                  <td><?php echo trim($data->id) ?></td>
+                  <td><?php echo $no ?></td>
                   <td><?php echo trim($data->nama_supplier) ?></td>
-                  <td><?php echo trim($data->address) ?></td>
+                  <!-- <td><?php echo trim($data->address) ?></td> -->
                   <td><?php echo trim($data->phone) ?></td>
                   <td><?php echo trim($data->email) ?></td>
                   <td>
                     <div class="btn-group" role="group">
-                      <form id="form_action<?php echo $j ?>" action="" method="post" accept-charset="utf-8" role="form">
-                        <input type="hidden" name="id_supplier" value="<?php echo $data->id ?>">
-                        <button id="<?php echo $j ?>" type="button" class="btn btn-default btn-view" name="view">View</button>
-                        <button id="<?php echo $j ?>" type="button" class="btn btn-default btn-edit" name="edit">
-                          <i class="far fa-edit"></i>Edit</button>
-                        <input id="btn_action<?php echo $j ?>" type="submit" class="d-none">
-                      </form>
+                      <button data-id="<?php echo trim($data->id); ?>" type="button" class="btn btn-default btn-view" name="view">View</button>
+                      <button data-id="<?php echo trim($data->id); ?>" type="button" class="btn btn-default btn-edit" name="edit">
+                        <i class="far fa-edit"></i>Edit</button>
                     </div>
                   </td>
                 </tr>
                 <?php endforeach ?>
                 </tfoot>
               </table>
+              <div class='d-none'>
+                <form id="form_action" action="" method="post" accept-charset="utf-8" role="form">
+                  <input id="value_id" name="id_supplier" value="">
+                  <input id="btn_action" type="submit" >
+                </form>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -107,15 +109,17 @@
     }
 
     $('.btn-view').click(function(event) {
-      $id = $(this).attr('id');
-      $("#form_action"+$id+"").attr('action', 'action-supplier/view');
-      $("#btn_action"+$id+"").click();
+      $id = $(this).attr('data-id');
+      $("#value_id").val($id);
+      $("#form_action").attr('action', 'action-supplier/view');
+      $("#btn_action").click();
     });
 
     $('.btn-edit').click(function(event) {
-      $id = $(this).attr('id');
-      $("#form_action"+$id+"").attr('action', 'action-supplier/edit');
-      $("#btn_action"+$id+"").click();
+      $id = $(this).attr('data-id');
+      $("#value_id").val($id);
+      $("#form_action").attr('action', 'action-supplier/edit');
+      $("#btn_action").click();
     });
 
 
